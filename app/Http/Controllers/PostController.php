@@ -52,7 +52,38 @@ class PostController extends Controller
             'posts.id', 'asc'
         )->paginate(10)->appends(['q' => $query]);
 
-        return view('home', compact('data'));
+        $vote = null;
+        if (auth()->check()) {
+            $user_id = auth()->user()->id;
+            $vote = VoteDetail::query()->where(
+                'user_id','=',"{$user_id}"
+            )->get();
+        }
+
+        return view('home', compact('data', 'vote'));
+    }
+
+    public function filter(Request $request) {
+        $filter = $request->filter;
+        $data = null;
+
+        $vote = null;
+        if (auth()->check()) {
+            $user_id = auth()->user()->id;
+            $vote = VoteDetail::query()->where(
+                'user_id','=',"{$user_id}"
+            )->get();
+        }
+
+        if ($filter == 'date') {
+            $data = Post::query()->join(
+                'post_details','post_id','=','id'
+            )->join (
+                'users','users.id','=','post_details.user_id'
+            )->orderBy('posts.post_date', 'asc')->paginate(10);
+
+            return view('home', compact('data', 'vote'));
+        }
     }
 
     public function validatePost(Request $request) {

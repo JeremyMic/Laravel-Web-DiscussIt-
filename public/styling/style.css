@@ -65,3 +65,15 @@ a {
     text-decoration: none !important;
     color: none;
 }
+
+.div-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.text-container {
+    display: flex;
+    width: 50%;
+    justify-content: center;
+}

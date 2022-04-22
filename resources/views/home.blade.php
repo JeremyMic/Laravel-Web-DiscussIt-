@@ -9,6 +9,31 @@
     <input type="submit"  class="btn btn-outline-primary">
 </form>
 
+<div style="margin: 0% 1%">
+    <p>
+        <a class="btn my-button" data-bs-toggle="collapse" href="#collapseForm" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Filters
+        </a>
+    </p>
+
+    <div class="collapse" id="collapseForm">
+        <div class="card card-body">
+            <form action="/" method="GET">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="filter" id="filter1" value="date">
+                    <label class="form-check-label" for="inlineRadio1">Upload Date</label>
+                  </div>
+                  {{-- <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="filter" id="filter2" value="vote">
+                    <label class="form-check-label" for="inlineRadio2">Vote</label>
+                  </div> --}}
+                <input type="submit" class="btn btn-primary">
+            </form>
+
+        </div>
+    </div>
+</div>
+
 @if(auth()->check())
     <a class="btn btn-primary" href="/create-post" role="button" style="max-width: 512px; margin: 0 1%">Create Post</a>
 @endif

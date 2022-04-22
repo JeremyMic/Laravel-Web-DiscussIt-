@@ -87,4 +87,10 @@ class UserController extends Controller
         }
         return redirect('/');
     }
+
+    public function profile($id) {
+        $data = User::find($id);
+
+        return view('Profile/profile', compact('data'));
+    }
 }

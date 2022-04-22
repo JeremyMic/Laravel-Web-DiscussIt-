@@ -27,6 +27,8 @@ Route::group(['middleware'=>'login'],function(){
 
     Route::get('/upVote/{id}', [VoteController::class, 'doUpVote']);
     Route::get('/downVote/{id}', [VoteController::class, 'doDownVote']);
+
+    Route::get('/profile/{id}',[\App\Http\Controllers\UserController::class, 'profile']);
 });
 
 Route::group(['middleware'=>'guest'],function(){
@@ -40,7 +42,9 @@ Route::group(['middleware'=>'guest'],function(){
 Route::get('/', [\App\Http\Controllers\PostController::class, 'index']);
 
 Route::get('/replies/{id}', [\App\Http\Controllers\ReplyController::class, 'replies']);
+
 Route::get('/search',[\App\Http\Controllers\PostController::class, 'search']);
+Route::get('/filter',[\App\Http\Controllers\PostController::class, 'filter']);
 
 Route::get('/category', [\App\Http\Controllers\CategoryController::class, 'viewCategory']);
 Route::get('/{id}', [\App\Http\Controllers\CategoryController::class, 'viewPostCategory']);
