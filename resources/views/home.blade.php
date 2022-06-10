@@ -3,11 +3,11 @@
 @section('content')
 
 {{-- Search bar here --}}
-<form  class="input-group card-spacing" action="/search" method="GET" style="width: 98%; margin: 2% 1%">
+{{-- <form  class="input-group card-spacing" action="/search" method="GET" style="width: 98%; margin: 2% 1%">
     {{ csrf_field() }}
     <input type="search" class="form-control rounded" name="q" placeholder="Search">
     <input type="submit"  class="btn btn-outline-primary">
-</form>
+</form> --}}
 
 <div style="margin: 0% 1%">
     <p>
@@ -40,7 +40,7 @@
 
 {{-- Forum List Here --}}
 @for($i = 0; $i < count($data); $i++)
-    <div class="card" style="border: solid 1px; margin: 2% 1%">
+    <div class="card" style="border: solid 1px;border-color: rgb(167, 167, 167); margin: 2% 1%">
         <div class="card-header header-bg">
             Posted By : {{$data[$i]->name}} 
             <p style="margin: 0">
@@ -83,7 +83,7 @@
                     </a>
                 @else
                     <a class="btn btn-outline-primary" href="upVote/{{$data[$i]->post_id}}">
-                        <i class="bi bi-arrow-up-circle-fill" style="color: aqua"></i>
+                        <i class="bi bi-arrow-up-circle-fill" style="color: #2D31FA"></i>
                     </a>
                 @endif
 
@@ -93,7 +93,7 @@
                     </a>
                 @else
                     <a class="btn btn-outline-primary" href="downVote/{{$data[$i]->post_id}}">
-                        <i class="bi bi-arrow-down-circle-fill" style="color: aqua"></i>
+                        <i class="bi bi-arrow-down-circle-fill" style="color: #2D31FA"></i>
                     </a>
                 @endif
             @endif

@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,12 +24,19 @@ Route::group(['middleware'=>'login'],function(){
     Route::post('/add-reply',[\App\Http\Controllers\ReplyController::class, 'addReply']);
 
     Route::get('/create-post', [MainController::class, 'createPost']);
-    Route::post('/create-post', [PostController::class, 'validatePost'])->name('validatePost');
+    Route::post('/create-post', [PostController::class, 'validateCreatePost'])->name('validateCreatePost');
 
     Route::get('/upVote/{id}', [VoteController::class, 'doUpVote']);
     Route::get('/downVote/{id}', [VoteController::class, 'doDownVote']);
 
     Route::get('/profile/{id}',[\App\Http\Controllers\UserController::class, 'profile']);
+    Route::get('/update', [UserController::class, 'update']);
+    Route::post('/update', [UserController::class, 'updateValidate'])->name('updateValidate');
+
+    Route::get('/my-post', [PostController::class, 'myPost']);
+    Route::get('/edit-post/{id}', [PostController::class, 'editPost']);
+    Route::post('/edit-post', [PostController::class, 'validateEditPost'])->name('validateEditPost');
+    Route::get('/delete-post/{id}', [PostController::class, 'deletePost']);
 });
 
 Route::group(['middleware'=>'guest'],function(){

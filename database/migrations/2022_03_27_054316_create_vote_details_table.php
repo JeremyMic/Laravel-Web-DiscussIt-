@@ -15,10 +15,9 @@ class CreateVoteDetailsTable extends Migration
     {
         Schema::create('vote_details', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('post_id');
-            $table->unsignedInteger('vote_id');
-            
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('post_id')->constrained('posts')->onDelete('cascade');
+            $table->foreignId('vote_id')->constrained('votes')->onDelete('cascade');
         });
     }
 

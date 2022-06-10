@@ -8,9 +8,12 @@
         @for($i = 0; $i < count($data); $i++)
             <div class="row" style="margin-top: 1%">
                 @if($i + 1 >= count($data))
-                    <div class="col">
+                    <div class="col col-cat">
                         <a href="/{{$data[$i]->id}}">
                             <div class="card">
+                                <div class="cat_img">
+                                    <img src="{{asset('storage/category/cat_0'.$data[$i]->id.'.jpg')}}" alt="image">
+                                </div>
                                 <div class="card-body blue-body-center white-text">
                                     {{$data[$i]->category_name}}
                                 </div>
@@ -18,9 +21,12 @@
                         </a>
                     </div>
                 @else
-                    <div class="col">
+                    <div class="col col-cat">
                         <a href="/{{$data[$i]->id}}">
                             <div class="card">
+                                <div class="cat_img">
+                                    <img src="{{asset('storage/category/cat_0'.$data[$i]->id.'.jpg')}}" alt="image">
+                                </div>
                                 <div class="card-body blue-body-center white-text">
                                     {{$data[$i]->category_name}}
                                 </div>
@@ -28,9 +34,12 @@
                         </a>
                     </div>
                     @php($i++)  
-                    <div class="col">
+                    <div class="col col-cat">
                         <a href="/{{$data[$i]->id}}">
                             <div class="card">
+                                <div class="cat_img">
+                                    <img src="{{asset('storage/category/cat_0'.$data[$i]->id.'.jpg')}}" alt="image">
+                                </div>
                                 <div class="card-body blue-body-center white-text">
                                     {{$data[$i]->category_name}}
                                 </div>

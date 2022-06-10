@@ -8,15 +8,86 @@
     <title>Web Name</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    {{-- <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg> --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    <script src="{{asset('Js/clock.js')}}" defer></script>
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+
     <link rel="stylesheet" href="{{asset('styling/style.css')}}">
+    <link rel="stylesheet" href="{{asset('styling/nav.css')}}">
+    <script src="{{asset('Js/clock.js')}}" defer></script>
 </head>
 <body onload="realtimeClock()">
 <div>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-color">
+        <nav class="navbar shadow-sm p-3 mb-2 navbar-expand-lg">
+            <div class="container-fluid">
+              <a class="navbar-brand ms-5 me-5 logo-title" href="/">DiscussIt</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item nav-btn">
+                        <a class="nav-link" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item nav-btn">
+                        <a class="nav-link" aria-current="page" href="/category">Categories</a>
+                    </li>
+                  @if(auth()->check())
+                        <li class="nav-item dropdown nav-btn">
+                            <a class="nav-link dropdown-toggle" href="/profile" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Posts
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="/">All Posts</a></li>
+                                <li><a class="dropdown-item" href="/my-post">My Posts</a></li>
+                                <li><a class="dropdown-item" href="/create-post">Create Post</a></li>
+                            </ul>
+                        </li>
+                    @else
+                        <li class="nav-item nav-btn">
+                            <a class="nav-link" aria-current="page" href="/">All Posts</a>
+                        </li>
+                    @endif
+                        
+                </ul>
+                <div class="d-flex">
+                    <a class="nav-link" id="datetime"></a>
+                </div>
+                <form action="/search" method="GET">
+                    {{ csrf_field() }}
+                    <div class="d-flex input-group-md me-3 rounded">
+                        <input type="search" class="form-control rounded" placeholder="Search Posts" aria-label="Search" aria-describedby="search-addon" name="q" />
+                        <button type="submit" class="btn btn-primary">
+                            <i class='bx bx-search' ></i>
+                        </button>
+                    </div>
+                </form>
+    
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                  @if(auth()->check()) 
+                    <li class="nav-item d-flex dropdown profile">
+                        <i class='bx bxs-user-circle'></i>
+                        <a class="nav-link dropdown-toggle profile-name" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{auth()->user()->name}}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/update">Update</a></li>
+                            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                        </ul>
+                    </li>
+                  @else
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/register">Register</a>
+                    </li>
+                  @endif
+                </ul>
+            </div>
+        </nav>
+
+        {{-- <nav class="navbar navbar-expand-lg navbar-light bg-color">
             <div class="container-fluid">
               <a class="navbar-brand title-text" href="/">Discuss IT</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,9 +98,6 @@
                   <li class="nav-item">
                     <a class="nav-link active white-text" aria-current="page" href="/">Home</a>
                   </li>
-                  {{-- <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/profile">Profile</a>
-                  </li> --}}
                   <li class="nav-item">
                     <a class="nav-link active white-text" aria-current="page" href="/category">Categories</a>
                   </li>
@@ -66,10 +134,10 @@
                 </span>
               </div>
             </div>
-          </nav>
+          </nav> --}}
     </header>
 
-    <div>
+    <div style="padding-bottom: 20px">
         @yield('content')
     </div>
 </div>

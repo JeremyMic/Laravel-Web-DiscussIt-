@@ -1,0 +1,42 @@
+.nav-font {
+    font-family: "Raleway", sans-serif;
+}
+
+.logo-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #06283D;
+}
+
+.navbar{
+    background-color: white;
+    font-weight: 500;
+    font-size: large;
+}
+
+.nav-btn a{
+    
+    margin: 16px;
+    padding: 8px;
+    text-align: center;
+    width: auto;
+    height: 36px;
+}
+
+.blue {
+    color: #2D31FA !important;
+}
+
+.black {
+    color: black !important;
+}
+
+.nav-btn a:hover{
+    background-color: rgb(71, 181, 255, 0.6);
+    border-radius: 12px;
+}
+
+
+.profile i{
+    font-size: 50px;
+}

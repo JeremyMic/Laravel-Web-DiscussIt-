@@ -14,8 +14,8 @@ class CreateCategoryDetailsTable extends Migration
     public function up()
     {
         Schema::create('category_details', function (Blueprint $table) {
-            $table->unsignedInteger('post_id');
-            $table->unsignedInteger('category_id');
+            $table->foreignId('post_id')->constrained('posts')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
         });
     }
 

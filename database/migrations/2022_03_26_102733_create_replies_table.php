@@ -15,8 +15,10 @@ class CreateRepliesTable extends Migration
     {
         Schema::create('replies', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('post_id');
+            // $table->unsignedBigInteger('user_id');
+            // $table->unsignedBigInteger('post_id');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('post_id')->constrained('posts')->onDelete('cascade');
             $table->text('reply_content');
             $table->dateTime('reply_date');
         });

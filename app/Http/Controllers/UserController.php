@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
 
@@ -92,5 +94,89 @@ class UserController extends Controller
         $data = User::find($id);
 
         return view('Profile/profile', compact('data'));
+    }
+
+    public function update() {
+        $id = auth()->user()->id;
+
+        $data = DB::table('users')
+            ->where('id','=', $id)
+            ->join('images','images.user_id','=','id')
+            ->first();
+
+        return view('Profile/update', compact('data'));
+    }
+
+    public function updateValidate(Request $request) {
+
+        // error_log('Some message here.');
+
+        $name = $request->name;
+        $gender = $request->gender;
+        $email = $request->email;
+
+        $error = null;
+        $picture = null;
+
+
+        if ($email == auth()->user()->email) {
+            $request_data = [
+                'email' => 'required|email',
+            ];
+        } else {
+            $request_data = [
+                'email' => 'required|email|unique:users,email',
+            ];
+        }
+        
+
+        $validateEmail = Validator::make($request->all(),  $request_data);
+    
+        if ($validateEmail->fails()) {
+            $error = new MessageBag(['input' => ['Email must be unique!']]);
+        }
+
+        if (strlen($name) > 50) {
+            $error = new MessageBag(['input' => ['Full name must be less than 50 characters']]);
+        }
+
+    
+        if ($request->hasFile('file')) {
+            
+            $validateFile = Validator::make($request->all(), [
+                'file' => 'required|mimes:jpg,jpeg,png'
+            ]);
+    
+            if ($validateFile->fails())  {
+                $error = new MessageBag(['input' => ['File extension must be jpg/jpeg/png']]);
+            } else {
+                $picture = auth()->user()->id.'.'.$request->file('file')->extension();
+            }
+        } 
+       
+        if ($error instanceof MessageBag) {
+            return redirect()->back()->withInput()->withErrors($error);
+        }
+
+        $id = auth()->user()->id;
+        
+        DB::table('users')
+            ->where('id', $id)
+            ->update([
+                'name' => $name,
+                'email' => $email,
+                'gender' => $gender,
+            ]);
+
+        if ($picture != null) {
+            // here upload pic
+            Storage::putFileAs('public/image', $request->file('file'), $picture);
+            DB::table('images')
+                ->where('user_id', $id)
+                ->update([
+                    'path' => 'storage/image/'.$picture,
+                ]);
+        }
+        return redirect()->back() ->with('alert', 'Updated!');
     }
 }
