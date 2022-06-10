@@ -8,35 +8,30 @@
     color: #06283D;
 }
 
-.navbar{
+.navbar {
     background-color: white;
     font-weight: 500;
     font-size: large;
 }
 
-.nav-btn a{
-    
+.nav-btn a {
+    color: #06283D;
     margin: 16px;
-    padding: 8px;
-    text-align: center;
+    padding: 6px;
     width: auto;
     height: 36px;
 }
 
-.blue {
-    color: #2D31FA !important;
+.nav-btn a:hover {
+    color: white;
+    background-color: #06283D;
+    border-radius: 10px;
 }
 
-.black {
-    color: black !important;
+.profile i {
+    font-size: 48px;
 }
 
-.nav-btn a:hover{
-    background-color: rgb(71, 181, 255, 0.6);
-    border-radius: 12px;
-}
-
-
-.profile i{
-    font-size: 50px;
+.profile-name {
+    font-size: 20px;
 }

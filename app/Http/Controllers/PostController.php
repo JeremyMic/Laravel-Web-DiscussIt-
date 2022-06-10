@@ -14,7 +14,7 @@ use Illuminate\Support\MessageBag;
 
 class PostController extends Controller
 {
-    public function index() {
+    public function post() {
         $data = Post::query()->join(
             'post_details','post_id','=','id'
         )->join (
@@ -30,7 +30,7 @@ class PostController extends Controller
             )->get();
         }
 
-        return view('home',compact('data', 'vote'));
+        return view('Post/post',compact('data', 'vote'));
     }
 
     public function myPost() {
@@ -97,7 +97,7 @@ class PostController extends Controller
             )->get();
         }
 
-        return view('home', compact('data', 'vote'));
+        return view('Post/post', compact('data', 'vote'));
     }
 
     public function filter(Request $request) {

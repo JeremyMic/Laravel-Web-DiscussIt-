@@ -47,7 +47,8 @@ Route::group(['middleware'=>'guest'],function(){
     Route::post('/register', [\App\Http\Controllers\UserController::class, 'registerValidate'])->name('registerValidate');
 });
 
-Route::get('/', [\App\Http\Controllers\PostController::class, 'index']);
+Route::get('/', [MainController::class, 'index']);
+Route::get('/post', [PostController::class, 'post']);
 
 Route::get('/replies/{id}', [\App\Http\Controllers\ReplyController::class, 'replies']);
 
