@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\CategoryDetail;
 use App\Models\Post;
 use App\Models\PostDetail;
+use App\Models\User;
 use App\Models\VoteDetail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -16,9 +17,13 @@ class PostController extends Controller
 {
     public function post() {
         $data = Post::query()->join(
-            'post_details','post_id','=','id'
-        )->join (
-            'users','users.id','=','post_details.user_id'
+            'category_details', 'category_details.post_id', '=', 'posts.id'
+        )->join(
+            'categories', 'categories.id', '=', 'category_id'
+        )->join(
+            'post_details', 'post_details.post_id', '=', 'posts.id'
+        )->join(
+            'users', 'users.id', '=', 'user_id'
         )->orderBy('posts.id', 'desc')->paginate(10);
 
 
@@ -29,8 +34,8 @@ class PostController extends Controller
                 'user_id','=',"{$user_id}"
             )->get();
         }
-
-        return view('Post/post',compact('data', 'vote'));
+        $sort = null;
+        return view('Post/post',compact('data', 'vote', 'sort'));
     }
 
     public function myPost() {
@@ -41,22 +46,20 @@ class PostController extends Controller
             'users','users.id','=','post_details.user_id'
         )->where(
             'users.id', '=', "{$id}"
-        )->orderBy('posts.id', 'asc')->paginate(10);
+        )->orderBy('posts.id', 'desc')->paginate(10);
 
         $vote = VoteDetail::query()->where(
             'user_id','=',"{$id}"
         )->get();
 
+
+        
         return view('Post/my_post',compact('data', 'vote'));
     }
 
     public function editPost($id) {
         $user_id = auth()->user()->id;
 
-        // $data = Post::query()
-        //     ->join('post_detail','posts.id','=','post_id')
-        //     ->where('posts.id','=',"{$id}")
-        //     ->where('user_id','=',"{$user_id}");
         $data = Post::where('posts.id','=',"{$id}")->first();
 
         if($data == null || $data->post_detail->user_id != $user_id){
@@ -96,31 +99,8 @@ class PostController extends Controller
                 'user_id','=',"{$user_id}"
             )->get();
         }
-
-        return view('Post/post', compact('data', 'vote'));
-    }
-
-    public function filter(Request $request) {
-        $filter = $request->filter;
-        $data = null;
-
-        $vote = null;
-        if (auth()->check()) {
-            $user_id = auth()->user()->id;
-            $vote = VoteDetail::query()->where(
-                'user_id','=',"{$user_id}"
-            )->get();
-        }
-
-        if ($filter == 'date') {
-            $data = Post::query()->join(
-                'post_details','post_id','=','id'
-            )->join (
-                'users','users.id','=','post_details.user_id'
-            )->reorderBy('posts.post_date', 'asc')->paginate(10);
-
-            return view('home', compact('data', 'vote'));
-        }
+        $sort = null;
+        return view('Post/post', compact('data', 'vote', 'sort'));
     }
 
     private function postValidation($title, $content, $category) {
@@ -168,7 +148,7 @@ class PostController extends Controller
             'category_id' => $category,
         ]);
 
-        return redirect('/');
+        return redirect('my-post');
     }
 
     public function validateEditPost(Request $request) {

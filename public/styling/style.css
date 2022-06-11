@@ -5,13 +5,6 @@
     margin-top: 5%;
 }
 
-
-.form_1 {
-    box-shadow: 0 4px 8px 0 #5EE6EB, 0 6px 20px 0 #5EE6EB;
-    padding: 1% 4%;
-    background-color: #0e175fc9;
-}
-
 .reply-container {
     display: flex;
     justify-content: flex-end;

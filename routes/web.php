@@ -53,7 +53,7 @@ Route::get('/post', [PostController::class, 'post']);
 Route::get('/replies/{id}', [\App\Http\Controllers\ReplyController::class, 'replies']);
 
 Route::get('/search',[\App\Http\Controllers\PostController::class, 'search']);
-Route::get('/filter',[\App\Http\Controllers\PostController::class, 'filter']);
+Route::get('/sort',[\App\Http\Controllers\PostController::class, 'sort']);
 
 Route::get('/category', [\App\Http\Controllers\CategoryController::class, 'viewCategory']);
 Route::get('/{id}', [\App\Http\Controllers\CategoryController::class, 'viewPostCategory']);

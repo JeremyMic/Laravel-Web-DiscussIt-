@@ -2,8 +2,8 @@
 
 @section('content')
 
-<div style="margin: 0% 1%">
-    <p>
+<div style="margin: 0% 1%" class="page-header">
+    {{-- <p>
         <a class="btn my-button" data-bs-toggle="collapse" href="#collapseForm" role="button" aria-expanded="false" aria-controls="collapseExample">
             Filters
         </a>
@@ -19,7 +19,8 @@
             </form>
 
         </div>
-    </div>
+    </div> --}}
+    <h3>My Posts</h3>
 </div>
 
 {{-- Forum List Here --}}
