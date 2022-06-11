@@ -2,13 +2,6 @@
 
 @section('content')
 
-{{-- Search bar here --}}
-{{-- <form  class="input-group card-spacing" action="/search" method="GET" style="width: 98%; margin: 2% 1%">
-    {{ csrf_field() }}
-    <input type="search" class="form-control rounded" name="q" placeholder="Search">
-    <input type="submit"  class="btn btn-outline-primary">
-</form> --}}
-
 <div style="margin: 0% 1%">
     <p>
         <a class="btn my-button" data-bs-toggle="collapse" href="#collapseForm" role="button" aria-expanded="false" aria-controls="collapseExample">
@@ -61,15 +54,9 @@
                     @for($j = 0; $j < count($vote); $j++)
                         @if($vote[$j]->user_id == auth()->user()->id && $vote[$j]->post_id == $data[$i]->post_id)
                             @if($vote[$j]->vote_id == 2)
-                                {{-- <a class="btn btn-outline-primary" href="upVote/{{$data[$i]->post_id}}">
-                                    <i class="bi bi-arrow-up-circle-fill" style="color: aqua"></i>
-                                </a> --}}
                                 @php($up = 1)
                             @endif
                             @if($vote[$j]->vote_id == 1)
-                                {{-- <a class="btn btn-outline-primary" href="downVote/{{$data[$i]->post_id}}">
-                                    <i class="bi bi-arrow-down-cirlce-fill" style="color: aqua"></i>
-                                </a> --}}
                                 @php($down = 1)
                             @endif
                             @break

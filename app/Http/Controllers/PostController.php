@@ -19,7 +19,7 @@ class PostController extends Controller
             'post_details','post_id','=','id'
         )->join (
             'users','users.id','=','post_details.user_id'
-        )->orderBy('posts.id', 'asc')->paginate(10);
+        )->orderBy('posts.id', 'desc')->paginate(10);
 
 
         $vote = null;
@@ -117,7 +117,7 @@ class PostController extends Controller
                 'post_details','post_id','=','id'
             )->join (
                 'users','users.id','=','post_details.user_id'
-            )->orderBy('posts.post_date', 'asc')->paginate(10);
+            )->reorderBy('posts.post_date', 'asc')->paginate(10);
 
             return view('home', compact('data', 'vote'));
         }

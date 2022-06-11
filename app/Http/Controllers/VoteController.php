@@ -35,7 +35,7 @@ class VoteController extends Controller
             $vote->save();
         }
 
-        return redirect('/');
+        return back();
     }
 
     public function doDownVote($id) {
@@ -66,6 +66,6 @@ class VoteController extends Controller
             $vote->save();
         }
 
-        return redirect('/');
+        return back();
     }
 }
