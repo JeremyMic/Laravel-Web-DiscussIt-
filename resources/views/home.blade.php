@@ -4,7 +4,7 @@
 <div id="hero" class="d-flex justify-content-center align-items-center" style="background: url({{asset('storage/banner/banner.jpg')}}) top center;">
     <div class="container position-relative banner-content">
       <h1>Welcome to DiscussIt</h1>
-      <h2>A place for students to discuss and learn together!</h2>
+      <h2>A place for students to discuss and learn together</h2>
       <a href="/post" class="btn-start">
         Start Discussing
       </a>
